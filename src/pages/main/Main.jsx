@@ -3,7 +3,7 @@ import { foodItems } from '../../utils/constants';
 
 export const Main = () => {
      return (
-          <main id="main" className='w-full h-screen '>
+          <main id="main" className='w-full'>
                <Section title="Menu" isHighlighted>
                     {foodItems.map((item) => (
                          <MenuItem key={item.id} item={item} />
