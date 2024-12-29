@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Section } from '../../shared';
 
-export const Congratulations = () => {
+export const ConfirmedBooking = () => {
   return (
      <main id="congratulations" className='w-full'>
             <Section title="Congratulations!" className={"h-screen text-center py-12"} isHighlighted>

@@ -1,7 +1,7 @@
 import { Outlet, Route, Routes } from 'react-router';
 import './App.css';
 import { BookingPage } from './pages/booking/BookingPage';
-import { Congratulations } from './pages/congratulations/Congratulations';
+import { ConfirmedBooking } from './pages/confirmed/ConfirmedBooking';
 import { Main } from './pages/main/Main';
 import { Footer, Header, Navbar, PageContainer } from './shared';
 
@@ -22,7 +22,7 @@ function App() {
       <Route path="/" element={<Layout />}>
       <Route index element={<Main />} />
         <Route path="booking" element={<BookingPage />} />
-        <Route path="/congratulations" element={<Congratulations />} />
+        <Route path="/confirmed" element={<ConfirmedBooking />} />
       </Route>
     </Routes>
   );
