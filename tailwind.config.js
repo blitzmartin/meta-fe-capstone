@@ -12,6 +12,9 @@ module.exports = {
         lemonYellowLight: '#fcfce8',
         lemonHighlight: '#FEF9D4',
       },
+      fontFamily: {
+        header: ['"Roboto Slab"', 'serif'],
+      },
     },
   },
   plugins: [],

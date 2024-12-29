@@ -8,7 +8,7 @@ export const Header = () => {
                          <img className='object-contain' alt="little-lemon-logo" src='/little-lemon-logo.png' />
                     </Link>
                </div>
-               <div className='flex flex-col justify-center text-lemonGreen text-sm'>
+               <div className='flex flex-col justify-center text-lemonGreen text-sm font-header'>
                     <h2 >A family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist</h2>
                </div>
           </header>
