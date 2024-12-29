@@ -9,7 +9,7 @@ module.exports = {
         lemonGreen: '#495E57',
         lemonYellow: '#F4CE14',
         lemonGreenLight: '#A4C8B1',
-        lemonYellowLight: '#FEF9D4',
+        lemonYellowLight: '#fffee0',
       },
     },
   },
