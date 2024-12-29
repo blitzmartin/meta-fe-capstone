@@ -1,15 +1,31 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useReducer } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { Section } from '../../shared';
 
+// Initial times for the booking
+const initializeTimes = () => ['18:00', '19:00', '20:00', '21:00'];
+
+// Reducer function to update available times
+const updateTimes = (state, action) => {
+  switch (action.type) {
+    case 'UPDATE_TIMES':
+      // Here you can update the logic to filter times based on the date
+      return initializeTimes(); // For now, returning the same times
+    default:
+      return state;
+  }
+};
+
 
 export const BookingPage = () => {
+   const [availableTimes, dispatch] = useReducer(updateTimes, [], initializeTimes);
   return (
     <main id="booking" className='w-full'>
       <Section title="Book a Table" isHighlighted>
-        <BookingForm />
+        <BookingForm availableTimes={availableTimes} dispatch={dispatch}  />
       </Section>
     </main>
   )
@@ -29,12 +45,13 @@ const bookingSchema = z.object({
   }),
 });
 
-const BookingForm = () => {
+const BookingForm = ({ availableTimes, dispatch }) => {
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(bookingSchema),
@@ -46,9 +63,15 @@ const BookingForm = () => {
     },
   });
 
+  // Watch for date changes and dispatch updates
+  const selectedDate = watch('date');
+  if (selectedDate) {
+    dispatch({ type: 'UPDATE_TIMES', payload: selectedDate });
+  }
+
   const onSubmit = (data) => {
     console.log("Form Submitted:", data);
-    navigate("/congratulations")
+    navigate("/congratulations");
   };
 
   return (
@@ -66,12 +89,18 @@ const BookingForm = () => {
 
       <div>
         <label htmlFor="time" className="block font-medium">Time</label>
-        <input
-          type="time"
+        <select
           id="time"
           className="border rounded p-2 w-full"
           {...register("time")}
-        />
+        >
+          <option value="">Select a time</option>
+          {availableTimes.map((time, index) => (
+            <option key={index} value={time}>
+              {time}
+            </option>
+          ))}
+        </select>
         {errors.time && <p className="text-red-500">{errors.time.message}</p>}
       </div>
 
