@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router';
 import './App.css';
 import { About } from './pages/about/About';
 import { Contacts } from './pages/contacts/Contacts';
