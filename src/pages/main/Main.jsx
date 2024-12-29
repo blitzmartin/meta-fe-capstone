@@ -15,9 +15,9 @@ export const Main = () => {
 
 const MenuItem = ({ item }) => {
      return (
-          <div className='flex flex-col gap-1 text-gray-800'>
+          <div className='flex flex-col text-gray-800 py-2'>
                <Separator />
-               <h3 className='text-xl font-bold'>{item.name}</h3>
+               <h3 className='text-xl font-bold mt-4'>{item.name}</h3>
                <p className='text-sm'>{item.description}</p>
                <p className='text-lg font-bold'>{item.price.toString()}</p>
           </div>
