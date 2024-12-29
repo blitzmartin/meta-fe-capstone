@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { Section } from '../../shared';
-
 
 
 export const BookingPage = () => {
@@ -30,6 +30,8 @@ const bookingSchema = z.object({
 });
 
 const BookingForm = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -46,6 +48,7 @@ const BookingForm = () => {
 
   const onSubmit = (data) => {
     console.log("Form Submitted:", data);
+    navigate("/congratulations")
   };
 
   return (
@@ -94,7 +97,7 @@ const BookingForm = () => {
         {errors.occasion && <p className="text-red-500">{errors.occasion.message}</p>}
       </div>
 
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded">
+      <button type="submit" className="bg-lemonGreen text-white p-2 rounded">
         Book Now
       </button>
     </form>
