@@ -1,7 +1,6 @@
 import { Outlet, Route, Routes } from 'react-router';
 import './App.css';
-import { About } from './pages/about/About';
-import { Contacts } from './pages/contacts/Contacts';
+import { BookingPage } from './pages/booking/BookingPage';
 import { Main } from './pages/main/Main';
 import { Footer } from './shared/footer/Footer';
 import { Header } from './shared/header';
@@ -23,8 +22,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
       <Route index element={<Main />} />
-      <Route path="about" element={<About />} />
-      <Route path="contacts" element={<Contacts />} />
+        <Route path="booking" element={<BookingPage />} />
       </Route>
     </Routes>
   );
