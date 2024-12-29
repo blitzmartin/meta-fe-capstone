@@ -1,7 +1,9 @@
+import { Section } from '../../shared';
+
 export const Main = () => {
      return (
           <main id="main" className='w-full h-screen '>
-               Welcome to the Home Page!
+               <Section title="About" isHighlighted>CIAO</Section>
           </main>
      );
 };
