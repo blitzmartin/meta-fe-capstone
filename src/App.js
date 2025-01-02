@@ -24,7 +24,7 @@ function App() {
       <Route path="/" element={<Layout />}>
       <Route index element={<MainPage />} />
         <Route path="booking" element={<BookingPage />} />
-        <Route path="/confirmed" element={<ConfirmedBooking />} />
+        <Route path="confirmed" element={<ConfirmedBooking />} />
       </Route>
     </Routes>
   );

@@ -3,9 +3,8 @@ import { useEffect, useReducer } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
-import { fetchAPI } from '../../api';
+import { fetchAPI, submitAPI } from '../../api';
 import { MainContainer, Section } from '../../shared';
-
 
 export const BookingPage = ({ availableTimes, dispatch }) => {
   return (
@@ -16,6 +15,7 @@ export const BookingPage = ({ availableTimes, dispatch }) => {
     </MainContainer>
   );
 };
+
 const bookingSchema = z.object({
   date: z.string().refine((value) => !isNaN(new Date(value).getTime()), {
     message: 'Invalid date',
@@ -29,20 +29,24 @@ const bookingSchema = z.object({
 
 const fetchInitialTimes = () => {
   const today = new Date();
-  return fetchAPI(today)
-}
+  return fetchAPI(today);
+};
 
 const updateTimes = (state, action) => {
   switch (action.type) {
-    case 'UPDATE_TIMES':
-      return fetchAPI(action.payload);
+    case 'UPDATE_TIMES': {
+      const date = action.payload;
+      if (!(date instanceof Date) || isNaN(date.getTime())) {
+        throw new Error('Invalid date passed to updateTimes');
+      }
+      return fetchAPI(date);
+    }
     default:
       return state;
   }
 };
 
-
-export const BookingForm = () => {
+const BookingForm = () => {
   const navigate = useNavigate();
   const {
     register,
@@ -58,7 +62,8 @@ export const BookingForm = () => {
       occasion: 'Birthday',
     },
   });
- const [availableTimes, dispatch] = useReducer(updateTimes, [], fetchInitialTimes);
+
+  const [availableTimes, dispatch] = useReducer(updateTimes, [], fetchInitialTimes);
 
   useEffect(() => {
     // Initialize with today's available times
@@ -67,13 +72,21 @@ export const BookingForm = () => {
 
   // Watch for date changes and dispatch updates
   const selectedDate = watch('date');
-  if (selectedDate) {
-    dispatch({ type: 'UPDATE_TIMES', payload: selectedDate });
-  }
+  useEffect(() => {
+    if (selectedDate) {
+      const parsedDate = new Date(selectedDate);
+      if (!isNaN(parsedDate.getTime())) {
+        dispatch({ type: 'UPDATE_TIMES', payload: parsedDate });
+      } else {
+        console.error('Invalid date selected');
+      }
+    }
+  }, [selectedDate]);
 
-  const onSubmit = (data) => {
-    console.log('Form Submitted:', data);
-    navigate('/congratulations');
+  const onSubmit = (values) => {
+    console.log('Form Submitted:', values);
+    submitAPI(values);
+    navigate('/confirmed');
   };
 
   return (
@@ -90,15 +103,19 @@ export const BookingForm = () => {
       </div>
 
       <div>
-      <label htmlFor="time">Time:</label>
-       <select id="time" name="time" className="border rounded p-2 w-full" required>
-        {availableTimes.map((time) => (
-          <option  key={time} value={time}>
-            {time}
-          </option>
-        ))}
-      </select>
-
+        <label htmlFor="time" className="block font-medium">Time</label>
+        <select
+          id="time"
+          className="border rounded p-2 w-full"
+          {...register('time')}
+        >
+          <option value="">Select a time</option>
+          {availableTimes.map((time) => (
+            <option key={time} value={time}>
+              {time}
+            </option>
+          ))}
+        </select>
         {errors.time && <p className="text-red-500">{errors.time.message}</p>}
       </div>
 
@@ -118,6 +135,7 @@ export const BookingForm = () => {
       <div>
         <label htmlFor="occasion" className="block font-medium">Occasion</label>
         <select id="occasion" className="border rounded p-2 w-full" {...register('occasion')}>
+          <option value="Anniversary">None</option>
           <option value="Birthday">Birthday</option>
           <option value="Anniversary">Anniversary</option>
         </select>
