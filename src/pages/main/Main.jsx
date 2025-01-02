@@ -1,15 +1,15 @@
-import { Section, Separator } from '../../shared';
+import { MainContainer, Section, Separator } from '../../shared';
 import { foodItems } from '../../utils/constants';
 
 export const Main = () => {
      return (
-          <main id="home" className='w-full'>
+          <MainContainer id="main">
                <Section title="Menu" isHighlighted>
                     {foodItems.map((item) => (
                          <MenuItem key={item.id} item={item} />
                     ))}
                </Section>
-          </main>
+          </MainContainer>
      );
 };
 

@@ -3,7 +3,7 @@ import { useReducer } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
-import { Section } from '../../shared';
+import { MainContainer, Section } from '../../shared';
 
 // Initial times for the booking
 const initializeTimes = () => ['18:00', '19:00', '20:00', '21:00'];
@@ -23,11 +23,11 @@ const updateTimes = (state, action) => {
 export const BookingPage = () => {
    const [availableTimes, dispatch] = useReducer(updateTimes, [], initializeTimes);
   return (
-    <main id="booking" className='w-full'>
+    <MainContainer id="booking">
       <Section title="Book a Table" isHighlighted>
         <BookingForm availableTimes={availableTimes} dispatch={dispatch}  />
       </Section>
-    </main>
+    </MainContainer>
   )
 }
 

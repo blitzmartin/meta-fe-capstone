@@ -8,6 +8,14 @@ export const PageContainer = ({ children }) => {
     );
 }
 
+export const MainContainer = ({children, id}) => {
+    return (
+        <main id={id} className='w-full h-screen'>
+            {children}
+        </main>
+    );
+}
+
 export const Section = ({ children, className, isHighlighted, title }) => {
     return (
         <section className={cn('w-full px-4 py-2 text-gray-800', className, { 'bg-lemonYellowLight': isHighlighted })}>
