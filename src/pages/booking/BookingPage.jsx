@@ -1,53 +1,32 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useReducer } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { MainContainer, Section } from '../../shared';
 
-// Initial times for the booking
-const initializeTimes = () => ['18:00', '19:00', '20:00', '21:00'];
 
-// Reducer function to update available times
-const updateTimes = (state, action) => {
-  switch (action.type) {
-    case 'UPDATE_TIMES':
-      // Here you can update the logic to filter times based on the date
-      return initializeTimes(); // For now, returning the same times
-    default:
-      return state;
-  }
-};
-
-
-export const BookingPage = () => {
-   const [availableTimes, dispatch] = useReducer(updateTimes, [], initializeTimes);
+export const BookingPage = ({ availableTimes, dispatch }) => {
   return (
     <MainContainer id="booking">
       <Section title="Book a Table" isHighlighted>
-        <BookingForm availableTimes={availableTimes} dispatch={dispatch}  />
+        <BookingForm availableTimes={availableTimes} dispatch={dispatch} />
       </Section>
     </MainContainer>
-  )
-}
-
+  );
+};
 const bookingSchema = z.object({
   date: z.string().refine((value) => !isNaN(new Date(value).getTime()), {
-    message: "Invalid date",
+    message: 'Invalid date',
   }),
-  time: z.string().nonempty("Time is required"),
-  guests: z
-    .number()
-    .min(1, "At least 1 guest required")
-    .max(20, "Cannot book for more than 20 guests"),
-  occasion: z.enum(["Birthday", "Anniversary"], {
-    errorMap: () => ({ message: "Please select a valid occasion" }),
+  time: z.string().nonempty('Time is required'),
+  guests: z.number().min(1, 'At least 1 guest required').max(20, 'Cannot book for more than 20 guests'),
+  occasion: z.enum(['Birthday', 'Anniversary'], {
+    errorMap: () => ({ message: 'Please select a valid occasion' }),
   }),
 });
 
-const BookingForm = ({ availableTimes, dispatch }) => {
+export const BookingForm = ({ availableTimes, dispatch }) => {
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -56,10 +35,10 @@ const BookingForm = ({ availableTimes, dispatch }) => {
   } = useForm({
     resolver: zodResolver(bookingSchema),
     defaultValues: {
-      date: "",
-      time: "",
+      date: '',
+      time: '',
       guests: 1,
-      occasion: "Birthday",
+      occasion: 'Birthday',
     },
   });
 
@@ -70,8 +49,8 @@ const BookingForm = ({ availableTimes, dispatch }) => {
   }
 
   const onSubmit = (data) => {
-    console.log("Form Submitted:", data);
-    navigate("/congratulations");
+    console.log('Form Submitted:', data);
+    navigate('/congratulations');
   };
 
   return (
@@ -82,18 +61,14 @@ const BookingForm = ({ availableTimes, dispatch }) => {
           type="date"
           id="date"
           className="border rounded p-2 w-full"
-          {...register("date")}
+          {...register('date')}
         />
         {errors.date && <p className="text-red-500">{errors.date.message}</p>}
       </div>
 
       <div>
         <label htmlFor="time" className="block font-medium">Time</label>
-        <select
-          id="time"
-          className="border rounded p-2 w-full"
-          {...register("time")}
-        >
+        <select id="time" className="border rounded p-2 w-full" {...register('time')}>
           <option value="">Select a time</option>
           {availableTimes.map((time, index) => (
             <option key={index} value={time}>
@@ -112,14 +87,14 @@ const BookingForm = ({ availableTimes, dispatch }) => {
           className="border rounded p-2 w-full"
           min="1"
           max="20"
-          {...register("guests", { valueAsNumber: true })}
+          {...register('guests', { valueAsNumber: true })}
         />
         {errors.guests && <p className="text-red-500">{errors.guests.message}</p>}
       </div>
 
       <div>
         <label htmlFor="occasion" className="block font-medium">Occasion</label>
-        <select id="occasion" className="border rounded p-2 w-full" {...register("occasion")}>
+        <select id="occasion" className="border rounded p-2 w-full" {...register('occasion')}>
           <option value="Birthday">Birthday</option>
           <option value="Anniversary">Anniversary</option>
         </select>

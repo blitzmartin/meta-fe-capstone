@@ -1,7 +1,7 @@
 import { MainContainer, Section, Separator } from '../../shared';
 import { foodItems } from '../../utils/constants';
 
-export const Main = () => {
+export const MainPage = () => {
      return (
           <MainContainer id="main">
                <Section title="Menu" isHighlighted>
