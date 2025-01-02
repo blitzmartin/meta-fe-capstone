@@ -1,7 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect, useReducer } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
+import { fetchAPI } from '../../api';
 import { MainContainer, Section } from '../../shared';
 
 
@@ -25,7 +27,22 @@ const bookingSchema = z.object({
   }),
 });
 
-export const BookingForm = ({ availableTimes, dispatch }) => {
+const fetchInitialTimes = () => {
+  const today = new Date();
+  return fetchAPI(today)
+}
+
+const updateTimes = (state, action) => {
+  switch (action.type) {
+    case 'UPDATE_TIMES':
+      return fetchAPI(action.payload);
+    default:
+      return state;
+  }
+};
+
+
+export const BookingForm = () => {
   const navigate = useNavigate();
   const {
     register,
@@ -41,6 +58,12 @@ export const BookingForm = ({ availableTimes, dispatch }) => {
       occasion: 'Birthday',
     },
   });
+ const [availableTimes, dispatch] = useReducer(updateTimes, [], fetchInitialTimes);
+
+  useEffect(() => {
+    // Initialize with today's available times
+    dispatch({ type: 'UPDATE_TIMES', payload: new Date() });
+  }, []);
 
   // Watch for date changes and dispatch updates
   const selectedDate = watch('date');
@@ -67,15 +90,15 @@ export const BookingForm = ({ availableTimes, dispatch }) => {
       </div>
 
       <div>
-        <label htmlFor="time" className="block font-medium">Time</label>
-        <select id="time" className="border rounded p-2 w-full" {...register('time')}>
-          <option value="">Select a time</option>
-          {availableTimes.map((time, index) => (
-            <option key={index} value={time}>
-              {time}
-            </option>
-          ))}
-        </select>
+      <label htmlFor="time">Time:</label>
+       <select id="time" name="time" className="border rounded p-2 w-full" required>
+        {availableTimes.map((time) => (
+          <option  key={time} value={time}>
+            {time}
+          </option>
+        ))}
+      </select>
+
         {errors.time && <p className="text-red-500">{errors.time.message}</p>}
       </div>
 
