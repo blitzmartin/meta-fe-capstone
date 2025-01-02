@@ -97,6 +97,7 @@ const BookingForm = () => {
           type="date"
           id="date"
           className="border rounded p-2 w-full"
+          aria-label="Select a date for your booking"
           {...register('date')}
         />
         {errors.date && <p className="text-red-500">{errors.date.message}</p>}
@@ -107,6 +108,7 @@ const BookingForm = () => {
         <select
           id="time"
           className="border rounded p-2 w-full"
+          aria-label="Select a time for your booking"
           {...register('time')}
         >
           <option value="">Select a time</option>
@@ -127,6 +129,7 @@ const BookingForm = () => {
           className="border rounded p-2 w-full"
           min="1"
           max="20"
+          aria-label="Enter the number of guests"
           {...register('guests', { valueAsNumber: true })}
         />
         {errors.guests && <p className="text-red-500">{errors.guests.message}</p>}
@@ -134,7 +137,7 @@ const BookingForm = () => {
 
       <div>
         <label htmlFor="occasion" className="block font-medium">Occasion</label>
-        <select id="occasion" className="border rounded p-2 w-full" {...register('occasion')}>
+        <select id="occasion" className="border rounded p-2 w-full" aria-label="Select the occasion for your booking" {...register('occasion')}>
           <option value="Anniversary">None</option>
           <option value="Birthday">Birthday</option>
           <option value="Anniversary">Anniversary</option>
@@ -142,7 +145,7 @@ const BookingForm = () => {
         {errors.occasion && <p className="text-red-500">{errors.occasion.message}</p>}
       </div>
 
-      <button type="submit" className="bg-lemonGreen text-white p-2 rounded">
+      <button type="submit" aria-label="Submit the booking form" className="bg-lemonGreen text-white p-2 rounded">
         Book Now
       </button>
     </form>
