@@ -12,7 +12,6 @@ const initializeTimes = () => ['18:00', '19:00', '20:00', '21:00'];
 const updateTimes = (state, action) => {
   switch (action.type) {
     case 'UPDATE_TIMES':
-      // Update logic based on action.payload (selected date)
       return initializeTimes(); // Placeholder
     default:
       return state;
