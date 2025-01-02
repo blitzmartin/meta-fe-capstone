@@ -6,11 +6,11 @@ import { z } from 'zod';
 import { fetchAPI, submitAPI } from '../../api';
 import { MainContainer, Section } from '../../shared';
 
-export const BookingPage = ({ availableTimes, dispatch }) => {
+export const BookingPage = () => {
   return (
     <MainContainer id="booking">
       <Section title="Book a Table" isHighlighted>
-        <BookingForm availableTimes={availableTimes} dispatch={dispatch} />
+        <BookingForm  />
       </Section>
     </MainContainer>
   );
