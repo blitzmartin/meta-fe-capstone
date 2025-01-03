@@ -1,3 +1,31 @@
+export const navBarLinks = [
+     {
+          id: 1,
+          name: 'Home',
+          linkTo: '/',
+     },
+     {
+          id: 2,
+          name: 'Booking',
+          linkTo: '/booking',
+     },
+     {
+          id: 3,
+          name: 'Menu',
+          linkTo: '/menu',
+     },
+         {
+          id: 4,
+          name: 'About',
+          linkTo: '/about',
+     },
+     {
+          id: 5,
+          name: 'Contacts',
+          linkTo: '/contacts',
+     },
+]
+
 export const menuItems = [
      {
           id: 1,

@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 
 export const Header = () => {
      return (
-          <header id="header" className='w-full flex gap-8 px-6 py-4'>
+          <header id="header" className='w-full flex sm:flex-row flex-col gap-8 px-6 py-4'>
                <div className='w-56 flex justify-center items-center'>
                     <Link to="/">
                          <img className='object-contain' alt="little-lemon-logo" src='/little-lemon-logo.png' />
