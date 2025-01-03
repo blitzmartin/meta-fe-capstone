@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { fetchAPI, submitAPI } from '../../api';
 import { MainContainer, Section } from '../../shared';
+import { occasions } from '../../utils/constants';
 
 export const BookingPage = () => {
   return (
@@ -59,18 +60,16 @@ const BookingForm = () => {
       date: '',
       time: '',
       guests: 1,
-      occasion: 'Birthday',
+      occasion: 'None',
     },
   });
 
   const [availableTimes, dispatch] = useReducer(updateTimes, [], fetchInitialTimes);
 
   useEffect(() => {
-    // Initialize with today's available times
     dispatch({ type: 'UPDATE_TIMES', payload: new Date() });
   }, []);
 
-  // Watch for date changes and dispatch updates
   const selectedDate = watch('date');
   useEffect(() => {
     if (selectedDate) {
@@ -138,9 +137,12 @@ const BookingForm = () => {
       <div>
         <label htmlFor="occasion" className="block font-medium">Occasion</label>
         <select id="occasion" className="border rounded p-2 w-full" aria-label="Select the occasion for your booking" {...register('occasion')}>
-          <option value="Anniversary">None</option>
-          <option value="Birthday">Birthday</option>
-          <option value="Anniversary">Anniversary</option>
+          {occasions.map((occasion) => (
+            <option key={occasion} value={occasion}>
+              {occasion}
+            </option>
+          ))
+          }
         </select>
         {errors.occasion && <p className="text-red-500">{errors.occasion.message}</p>}
       </div>

@@ -26,6 +26,8 @@ export const navBarLinks = [
      },
 ]
 
+export const occasions = ['None', 'Birthday', 'Anniversary'];
+
 export const menuItems = [
      {
           id: 1,
