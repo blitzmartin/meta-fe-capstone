@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { MainContainer, Section, Separator } from '../../shared';
-import { foodItems } from '../../utils/constants';
+import { menuItems } from '../../utils/constants';
 
 const ACCESS_KEY = process.env.REACT_APP_UNSPLASH_ACCESS_KEY
 
@@ -32,7 +32,7 @@ export const MainPage = () => {
                     <Link to='booking' className='rounded-xl bg-lemonGreen text-lemonYellow px-3 py-1'>Reserve a table</Link>
                </Section>
                <Section title="Menu" >
-                    {foodItems.map((item) => (
+                    {menuItems.map((item) => (
                          <MenuItem key={item.id} item={item} />
                     ))}
                </Section>
