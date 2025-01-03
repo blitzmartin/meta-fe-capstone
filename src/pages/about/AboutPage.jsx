@@ -1,7 +1,9 @@
+import { MainContainer, Section } from "../../shared";
+
 export const AboutPage = () => {
-     return(
-          <div>
-               <h1>About Page</h1>
-          </div>
-     );
-}
+  return (
+     <MainContainer id="about">
+          <Section title="About" isHighlighted></Section>
+     </MainContainer>
+  );
+};

@@ -23,8 +23,8 @@ export const HomePage = () => {
     }); */
 
      return (
-          <MainContainer id="main">
-               <Section isHighlighted>
+        <MainContainer id="main">
+            <Section isHighlighted>
                 <h1 className='text-3xl font-bold font-header'>Welcome to Little Lemon!</h1>
                 <div className='flex flex-col sm:flex-row gap-4 sm:items-center pb-2'>
                     <p>You can reserve a table in advance. Click on button and follow instructions.</p>
@@ -32,8 +32,8 @@ export const HomePage = () => {
                     <Link aria-label='Go to booking page' to='booking' className='rounded-2xl bg-lemonGreen text-lemonYellow px-4 py-2'>Reserve a table</Link>
                     </div>
                 </div>
-               </Section>
-          </MainContainer>
+            </Section>
+        </MainContainer>
      );
 };
 
