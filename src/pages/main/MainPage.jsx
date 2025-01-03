@@ -2,7 +2,27 @@ import { Link } from 'react-router-dom';
 import { MainContainer, Section, Separator } from '../../shared';
 import { foodItems } from '../../utils/constants';
 
+const ACCESS_KEY = process.env.REACT_APP_UNSPLASH_ACCESS_KEY
+
 export const MainPage = () => {
+     fetch('https://api.unsplash.com/search/photos?query=food&per_page=10', {
+    headers: {
+        Authorization: `Client-ID ${ACCESS_KEY}`,
+    },
+})
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data.results);
+    })
+    .catch(error => {
+        console.error('Error fetching images:', error);
+    });
+
      return (
           <MainContainer id="main">
                <Section isHighlighted>
