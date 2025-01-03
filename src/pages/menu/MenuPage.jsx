@@ -4,7 +4,7 @@ import { menuItems } from '../../utils/constants';
 export const MenuPage = () => {
      return (
               <MainContainer id="menu">
-                    <Section title="Menu" >
+                    <Section title="Menu" isHighlighted className='h-screen'>
                               {menuItems.map((item) => (
                                    <MenuItem key={item.id} item={item} />
                               ))}
